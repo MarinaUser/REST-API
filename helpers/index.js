@@ -3,7 +3,7 @@ const ctrlWrapper = require('./ctrlWrapper');
 const handleMongooseError = require("./handleMongooseError");
 const patterns = require("./patterns");
 const jimpModifyImage = require("./jimpModifyImage");
-const sendEmail = require("./sendEmail");
+
 
 module.exports = {
     HttpError,
@@ -11,6 +11,4 @@ module.exports = {
     handleMongooseError,
     patterns,
     jimpModifyImage,
-    sendEmail,
-    
 }
