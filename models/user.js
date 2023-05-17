@@ -31,6 +31,15 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 		},
+		verify: {
+			type: Boolean,
+			default: false,
+		},
+
+		verificationToken: {
+			type: String,
+			default: "",
+		},
 	},
 	{ versionKey: false, timestamps: true },
 );
@@ -61,6 +70,17 @@ const registerSchema = Joi.object(
     }
 )
 
+const emailSchema = Joi.object({
+	email: Joi.string()
+		.email({ minDomainSegments: 2 })
+		.pattern(patterns.emailRegexp)
+		.messages({
+			"string.pattern.base": "Invalid email. The email must be valid.",
+			"any.required": `"email" is a required field`,
+		})
+		.required(),
+});
+
 const loginSchema = Joi.object({
 	password: Joi.string().min(6).required(),
     email: Joi.string()
@@ -78,7 +98,8 @@ const updateSubcriptionSchema = Joi.object({
 const schemas = {
     registerSchema,
     loginSchema,
-    updateSubcriptionSchema
+	updateSubcriptionSchema,
+	emailSchema,
 }
 
 const User = model("user", userSchema);
